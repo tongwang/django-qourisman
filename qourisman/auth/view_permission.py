@@ -97,7 +97,8 @@ def register_admin(model_admin):
         if self.opts.app_label in global_staff_view:
             return True
 
-        return request.user.has_perm('%s.can_view' % self.opts.app_label)
+        return request.user.has_perm('%s.view_%s' % (self.opts.app_label, self.opts.verbose_name_raw))
+
 
     model_admin.has_change_permission = new_has_change_permission
 
@@ -110,7 +111,7 @@ def register_admin(model_admin):
         perms['view'] = (request.method == "GET"
             and request.user.is_staff
             and (self.opts.app_label in global_staff_view
-                or request.user.has_perm('%s.can_view' % self.opts.app_label)))
+                or request.user.has_perm('%s.view_%s' % (self.opts.app_label, self.opts.verbose_name_raw))))
 
         return perms
 
