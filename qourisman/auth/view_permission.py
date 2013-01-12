@@ -38,7 +38,7 @@ from django.contrib.auth.models import User
 
 def register_model(model_class):
     model_class._meta.permissions.append(
-        ("view_%s" % model_class._meta.verbose_name_raw, "Can view %s" % model_class._meta.verbose_name_raw),
+        ("view_%s" % model_class._meta.module_name, "Can view %s" % model_class._meta.verbose_name_raw),
     )
 
 
@@ -99,7 +99,6 @@ def register_admin(model_admin):
 
         return request.user.has_perm('%s.view_%s' % (self.opts.app_label, self.opts.verbose_name_raw))
 
-
     model_admin.has_change_permission = new_has_change_permission
 
     old_get_model_perms = model_admin.get_model_perms
@@ -116,7 +115,6 @@ def register_admin(model_admin):
         return perms
 
     model_admin.get_model_perms = new_get_model_perms
-
 
     from django.shortcuts import render_to_response
     from django.utils.safestring import mark_safe
