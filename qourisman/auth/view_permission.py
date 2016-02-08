@@ -38,7 +38,7 @@ from django.contrib.auth.models import User
 
 def register_model(model_class):
     model_class._meta.permissions.append(
-        ("view_%s" % model_class._meta.module_name, "Can view %s" % model_class._meta.verbose_name_raw),
+        ("view_%s" % model_class._meta.model_name, "Can view %s" % model_class._meta.verbose_name_raw),
     )
 
 
