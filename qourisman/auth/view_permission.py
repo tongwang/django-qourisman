@@ -125,7 +125,7 @@ def register_admin(model_admin):
 
     @wraps(old_render_change_form)
     def new_render_change_form(self, request, context, obj=None, *args, **kwargs):
-        res = old_render_change_form(self, request, context, *args, **kwargs)
+        res = old_render_change_form(self, request, context, obj=obj, *args, **kwargs)
         res.context_data.update({
             'has_change_permission': old_has_change_permission(self, request, obj)
         })
